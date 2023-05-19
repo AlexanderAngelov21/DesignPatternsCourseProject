@@ -7,7 +7,7 @@ public class GarlicSauce extends SauceDecorator {
 
     public GarlicSauce(Burger burger) {
         this.burger = burger;
-        description = burger.getDescription() + ", Garlic Sauce";
+        description = burger.getDescription() + " with Garlic Sauce";
         cost = burger.getCost() + 0.99;
     }
 }

@@ -7,7 +7,7 @@ public class KetchupSauce extends SauceDecorator {
 
     public KetchupSauce(Burger burger) {
         this.burger = burger;
-        description = burger.getDescription() + ", Ketchup Sauce";
+        description = burger.getDescription() + " with Ketchup Sauce";
         cost = burger.getCost() + 0.49;
     }
 }

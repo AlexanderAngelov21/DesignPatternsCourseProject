@@ -28,13 +28,12 @@ public class CookOrderCommand implements OrderCommand {
             System.out.println("Chef: Received order for " + burgerType + " burger with " + sauceType + " sauce.");
         }
         Burger burger = Kitchen.makeBurger(burgerType);
-        System.out.println("Chef: Made " + burger.getDescription());
+        System.out.println("Chef: Making " + burger.getDescription());
         if (!sauceType.isEmpty()) {
             burger = Kitchen.addSauce(burger, sauceType);
-            System.out.println("Chef: Added " + sauceType + " sauce to burger");
+            System.out.println("Chef: Adding " + sauceType + " sauce to burger");
         }
-        System.out.println("Chef: Preparing " + burger.getDescription());
-        System.out.println("Chef: Order ready!");
+        System.out.println("Chef: Order for " + burger.getDescription() + " is ready!");
         System.out.println("Chef: Total cost is $" + burger.getCost());
     }
 }
