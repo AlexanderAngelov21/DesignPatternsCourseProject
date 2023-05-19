@@ -2,7 +2,9 @@ package Singleton;
 
 import Command.Cashier;
 import Command.Chef;
-import Command.Order;
+import Command.CookOrderCommand;
+import Command.OrderCommand;
+import Command.TakeOrderCommand;
 
 public class Restaurant {
     private static Restaurant instance = null;
@@ -30,8 +32,10 @@ public class Restaurant {
     }
 
     public void takeOrder(String burgerType, String sauceType) {
-        Order order = new Order(burgerType, sauceType);
-        cashier.takeOrder(order);
-        chef.cookOrder(order);
+        OrderCommand takeOrderCommand = new TakeOrderCommand(burgerType, sauceType);
+        cashier.takeOrder(takeOrderCommand);
+
+        OrderCommand cookOrderCommand = new CookOrderCommand(burgerType, sauceType);
+        chef.cookOrder(cookOrderCommand);
     }
 }
