@@ -7,7 +7,7 @@ import Command.OrderCommand;
 import Command.TakeOrderCommand;
 
 public class Restaurant {
-    private static Restaurant instance = null;
+    private static volatile Restaurant instance = null;
     private Cashier cashier;
     private Chef chef;
 
@@ -18,11 +18,14 @@ public class Restaurant {
 
     public static Restaurant getInstance() {
         if (instance == null) {
-            instance = new Restaurant();
+            synchronized (Restaurant.class) {
+                if (instance == null) {
+                    instance = new Restaurant();
+                }
+            }
         }
         return instance;
     }
-
     public void open() {
         System.out.println("Restaurant: Opening for business!");
     }
