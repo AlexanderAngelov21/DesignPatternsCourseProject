@@ -3,8 +3,10 @@ package Singleton;
 import Command.Cashier;
 import Command.Chef;
 import Command.CookOrderCommand;
-import Command.OrderCommand;
+import Command.OrderInvoker;
 import Command.TakeOrderCommand;
+import Factory.Burger;
+import Factory.Kitchen;
 
 public class Restaurant {
     private static volatile Restaurant instance = null;
@@ -26,6 +28,7 @@ public class Restaurant {
         }
         return instance;
     }
+
     public void open() {
         System.out.println("Restaurant: Opening for business!");
     }
@@ -35,10 +38,21 @@ public class Restaurant {
     }
 
     public void takeOrder(String burgerType, String sauceType) {
-        OrderCommand takeOrderCommand = new TakeOrderCommand(burgerType, sauceType);
-        cashier.takeOrder(takeOrderCommand);
+        OrderInvoker orderInvoker = new OrderInvoker();
 
-        OrderCommand cookOrderCommand = new CookOrderCommand(burgerType, sauceType);
-        chef.cookOrder(cookOrderCommand);
+        // TakeOrderCommand
+        orderInvoker.setOrderCommand(new TakeOrderCommand(cashier, burgerType, sauceType));
+        orderInvoker.invoke();
+
+        Burger burger = Kitchen.makeBurger(burgerType);
+        if (!sauceType.isEmpty()) {
+            burger = Kitchen.addSauce(burger, sauceType);
+        }
+
+        // CookOrderCommand
+        orderInvoker.setOrderCommand(new CookOrderCommand(chef, burgerType, sauceType, burger));
+        orderInvoker.invoke();
+
+        chef.cookOrder(burgerType, sauceType, burger);
     }
 }
