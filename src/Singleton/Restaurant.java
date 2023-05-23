@@ -52,7 +52,6 @@ public class Restaurant {
         // CookOrderCommand
         orderInvoker.setOrderCommand(new CookOrderCommand(chef, burgerType, sauceType, burger));
         orderInvoker.invoke();
-
-        chef.cookOrder(burgerType, sauceType, burger);
+        
     }
 }

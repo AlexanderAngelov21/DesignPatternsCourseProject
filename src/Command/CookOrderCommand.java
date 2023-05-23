@@ -18,9 +18,6 @@ public class CookOrderCommand implements OrderCommand {
 
     @Override
     public void execute() {
-        System.out.println("Chef: Making " + burger.getDescription());
-        if (!sauceType.isEmpty()) {
-            System.out.println("Chef: Adding " + sauceType + " sauce to burger");
-        }
+       chef.cookOrder(burgerType,sauceType,burger);
     }
 }
